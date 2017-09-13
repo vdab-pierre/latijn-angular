@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {CaputService} from '../caput.service'
+import {LatijnService} from '../latijn.service'
 @Component({
   selector: 'app-latijn',
   templateUrl: './latijn.component.html',
@@ -8,10 +8,10 @@ import {CaputService} from '../caput.service'
 })
 export class LatijnComponent implements OnInit {
 
-  constructor(private caputService:CaputService) { }
+  constructor(private latijnService:LatijnService) { }
   quote:string;
   ngOnInit() {
-    this.quote=this.caputService.getCaput();
+    this.quote=this.latijnService.getCaput();
   }
 
 }

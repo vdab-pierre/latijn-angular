@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { CaputService } from '../../caput.service'
+import { LatijnService } from '../../latijn.service'
 @Component({
   selector: 'app-latijn-woorden-leren',
   templateUrl: './latijn-woorden-leren.component.html',
@@ -7,10 +7,10 @@ import { CaputService } from '../../caput.service'
 })
 export class LatijnWoordenLerenComponent implements OnInit {
 
-  constructor(private caputService: CaputService) { }
+  constructor(private latijnService: LatijnService) { }
   quote: string;
   ngOnInit() {
-    this.quote=this.caputService.getWoorden();
+    this.quote=this.latijnService.getWoorden();
   }
 
 }

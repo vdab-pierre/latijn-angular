@@ -11,7 +11,7 @@ import { LatijnComponent } from './latijn/latijn.component';
 import { CaputComponent } from './latijn/caput/caput.component';
 import { AfvragenComponent } from './latijn/afvragen/afvragen.component';
 import { LatijnWoordenLerenComponent } from './latijn/latijn-woorden-leren/latijn-woorden-leren.component';
-import {CaputService} from './caput.service';
+import {LatijnService} from './latijn.service';
 
 @NgModule({
   declarations: [
@@ -26,7 +26,7 @@ import {CaputService} from './caput.service';
   imports: [
     BrowserModule,FormsModule,AppRoutingModule,HttpModule
   ],
-  providers: [CaputService],
+  providers: [LatijnService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

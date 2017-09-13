@@ -1,15 +1,15 @@
 import { TestBed, inject } from '@angular/core/testing';
 
-import { CaputService } from './caput.service';
+import { LatijnService } from './latijn.service';
 
-describe('CaputService', () => {
+describe('LatijnService', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
-      providers: [CaputService]
+      providers: [LatijnService]
     });
   });
 
-  it('should be created', inject([CaputService], (service: CaputService) => {
+  it('should be created', inject([LatijnService], (service: LatijnService) => {
     expect(service).toBeTruthy();
   }));
 });
