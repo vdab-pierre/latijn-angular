@@ -5,14 +5,15 @@ import { RouterModule, Routes } from '@angular/router';
 import { AppComponent } from '../app.component';
 import { LatijnComponent } from '../latijn/latijn.component';
 import { CaputComponent } from '../latijn/caput/caput.component';
-import { WoordenLerenComponent } from '../latijn/woorden-leren/woorden-leren.component';
+import { LatijnWoordenLerenComponent } from '../latijn/latijn-woorden-leren/latijn-woorden-leren.component';
 import { AfvragenComponent } from '../latijn/afvragen/afvragen.component';
 
 
 const appRoutes: Routes = [
   { path: 'latijn', component: LatijnComponent },
   { path: 'latijn/caput/:id', component: CaputComponent },
-  { path: 'latijn/leren', component: WoordenLerenComponent },
+  { path: 'latijn/woordenleren', component: LatijnWoordenLerenComponent },
+  
   /*{ path: '**', component: PageNotFoundComponent }*/
 ];
 

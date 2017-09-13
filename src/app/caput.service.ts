@@ -2,7 +2,10 @@ import { Injectable } from '@angular/core';
 
 @Injectable()
 export class CaputService {
-
-  constructor() { }
-
+  getCaput():string{
+      return "tis caput";
+  }
+  getWoorden():string{
+    return "woorden";
+  }
 }
