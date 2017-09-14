@@ -1,23 +1,26 @@
-<div *ngIf="caput"><p>
-Woorden van {{caput.naam}}: 
-</p>
-<table>
-  <thead>
-    <tr>
-    <th>#</th>
-    <th>Woord</th>
-    <th>Genus</th>
-    <th>Vertaling</th>
-    </tr>
+<div *ngIf="caput">
+  <p>
+    Woorden van {{caput.naam}}:
+  </p>
+  <table>
+    <thead>
+      <tr>
+        <th>#</th>
+        <th>Woord</th>
+        <th>Genus</th>
+        <th>Vertaling</th>
+        <th>Opm</th>
+      </tr>
 
-  </thead>
-  <tbody>
-    <tr *ngFor="let woord of woorden">
-      <td>{{woord.id}}</td>
-      <td>{{woord.term}}</td>
-      <td>{{woord.genus}}</td>
-      <td>{{woord.vert}}</td>
-    </tr>
-  </tbody>
-</table>
+    </thead>
+    <tbody>
+      <tr *ngFor="let woord of woorden">
+        <td>{{woord.id}}</td>
+        <td>{{woord.term}}</td>
+        <td>{{woord.genus}}</td>
+        <td>{{woord.vert}}</td>
+        <td>{{woord.opm}}</td>
+      </tr>
+    </tbody>
+  </table>
 </div>

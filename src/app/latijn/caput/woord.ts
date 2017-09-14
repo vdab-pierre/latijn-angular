@@ -7,4 +7,5 @@ export class Woord {
     term:string;
     genus?:Genus;
     vert:string;
+    opm:string;
 }
