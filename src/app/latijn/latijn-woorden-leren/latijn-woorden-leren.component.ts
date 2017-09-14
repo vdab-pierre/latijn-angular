@@ -10,7 +10,7 @@ export class LatijnWoordenLerenComponent implements OnInit {
   constructor(private latijnService: LatijnService) { }
   quote: string;
   ngOnInit() {
-    this.quote=this.latijnService.getWoorden();
+    //this.quote=this.latijnService.getWoorden();
   }
 
 }

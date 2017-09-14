@@ -18,7 +18,7 @@ export class LatijnComponent implements OnInit {
 
   onSelect(caput:Caput):void{
     this.selectedCaput=caput;
-    this.router.navigate(['/latijn/caput/${selectedCaput.id}']);
+    this.router.navigate(['/latijn/caput',this.selectedCaput.id]);
   }
 
   ngOnInit() {

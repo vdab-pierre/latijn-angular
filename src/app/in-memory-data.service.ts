@@ -13,9 +13,9 @@ export class InMemoryDataService implements InMemoryDbService {
 
     const woorden=[
       {id:1,caput:caputs[0], term:"abesse",vert:"afwezig zijn"},
-      {id:1,caput:caputs[1],term:"servus",vert:"slaaf",genus:Genus.m}
+      {id:1,caput:caputs[1],term:"servus",vert:"slaaf",genus:Genus[Genus.m]}
     ]
-    console.log(`aantal caputs: ${caputs.length}, aantal woorden: ${woorden.length}`);
+    
     return {caputs,woorden};
   }
 }
