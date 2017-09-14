@@ -1,3 +1,3 @@
-enum Genus{
+export enum Genus{
     m,v,o
 }

@@ -1,7 +1,6 @@
 <p>
   latijn works!
 </p>
-<p>
-  {{quote}}
-</p>
-<a routerLink="/latijn/woordenleren">Woorden Leren</a>
+<ul>
+  <li *ngFor="let caput of caputs;" (click)="onSelect(caput)">{{caput.naam}}
+</ul>
