@@ -13,6 +13,7 @@ import { CaputComponent } from './latijn/caput/caput.component';
 import { AfvragenComponent } from './latijn/afvragen/afvragen.component';
 import { LatijnWoordenLerenComponent } from './latijn/latijn-woorden-leren/latijn-woorden-leren.component';
 import {LatijnService} from './latijn.service';
+import { LatijnWoordenLijstComponent } from './latijn/latijn-woorden-lijst/latijn-woorden-lijst.component';
 
 @NgModule({
   declarations: [
@@ -20,7 +21,8 @@ import {LatijnService} from './latijn.service';
     LatijnComponent,
     CaputComponent,
     AfvragenComponent,
-    LatijnWoordenLerenComponent, 
+    LatijnWoordenLerenComponent,
+    LatijnWoordenLijstComponent, 
   ],
   imports: [
     BrowserModule,FormsModule,AppRoutingModule,HttpModule,InMemoryWebApiModule.forRoot(InMemoryDataService)

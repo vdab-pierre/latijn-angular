@@ -22,6 +22,8 @@ export class CaputComponent implements OnInit {
     this.route.paramMap
       .switchMap((params: ParamMap) => this.latijnService.getCaput(+params.get('id')))
       .subscribe((c: Caput) => this.caput = c);
+
+      
     this.route.paramMap
       .switchMap((params: ParamMap) => this.latijnService.getCaput(+params.get('id')))
       .subscribe((c: Caput) => this.latijnService.getWoorden(c).then(woorden => this.woorden = woorden));

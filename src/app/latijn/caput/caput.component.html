@@ -1,4 +1,4 @@
-<div *ngIf="caput">
+<div style="float:left" *ngIf="caput">
   <p>
     Woorden van {{caput.naam}}:
   </p>
@@ -9,7 +9,7 @@
         <th>Woord</th>
         <th>Genus</th>
         <th>Vertaling</th>
-        <th>Opm</th>
+        <th>Aanvullende informatie</th>
       </tr>
 
     </thead>
@@ -19,8 +19,11 @@
         <td>{{woord.term}}</td>
         <td>{{woord.genus}}</td>
         <td>{{woord.vert}}</td>
-        <td>{{woord.opm}}</td>
+        <td>{{woord.aanvInf}}</td>
       </tr>
     </tbody>
   </table>
+</div>
+<div>
+
 </div>
