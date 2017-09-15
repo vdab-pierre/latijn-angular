@@ -23,11 +23,11 @@ export class CaputComponent implements OnInit {
       .switchMap((params: ParamMap) => this.latijnService.getCaput(+params.get('id')))
       .subscribe((c: Caput) => this.caput = c);
 
-      
+
     this.route.paramMap
       .switchMap((params: ParamMap) => this.latijnService.getCaput(+params.get('id')))
       .subscribe((c: Caput) => this.latijnService.getWoorden(c).then(woorden => this.woorden = woorden));
-
+    
     //this.latijnService.getWoorden(this.caput).then(woorden => this.woorden = woorden);
 
   }
