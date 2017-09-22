@@ -1,6 +1,7 @@
 import{Caput} from './caput';
 import{Genus} from '../genus';
 import {Vertaling} from './vertaling'
+import {AanvullendeInfo} from './aanvinfo'
 
 export class Woord {
     id:number;
@@ -8,5 +9,5 @@ export class Woord {
     term:string;
     genus?:Genus;
     vert:Vertaling[];
-    aanvInf:string;
+    aanvInf:AanvullendeInfo[];
 }

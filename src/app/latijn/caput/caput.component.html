@@ -19,7 +19,7 @@
         <td>{{woord.term}}</td>
         <td>{{woord.genus}}</td>
         <td><span *ngFor="let v of woord.vert">{{v.term}} </span></td>
-        <td>{{woord.aanvInf}}</td>
+        <td><span *ngFor="let a of woord.aanvInf">{{a.term}} </span></td>
       </tr>
     </tbody>
   </table>
@@ -28,4 +28,3 @@
     <a routerLink="/latijn/afvragen/${caput.id}">Afvragen</a>
     <a routerLink="/latijn/woordenleren/${caput.id}">Leren</a>
 </div>
-<router-outlet></router-outlet>
