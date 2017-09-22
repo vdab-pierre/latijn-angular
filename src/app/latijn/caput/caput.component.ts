@@ -15,7 +15,17 @@ import { LatijnService } from '../../latijn.service'
 export class CaputComponent implements OnInit {
   caput: any;
   woorden: any[];
-  selectedWoord:any={};
+
+  selectedWoordVan = null;
+  selectedWoordTot = null;
+  selectedWoorden: any[];
+
+  selected: boolean;
+  heleCaput: boolean;
+  leren: boolean;
+  afvragen: boolean;
+
+
   constructor(private latijnService: LatijnService, private route: ActivatedRoute, private location: Location) { }
 
   ngOnInit() {
@@ -28,10 +38,31 @@ export class CaputComponent implements OnInit {
     this.route.paramMap
       .switchMap((params: ParamMap) => this.latijnService.getCaput(+params.get('id')))
       .subscribe((c: Caput) => this.latijnService.getWoorden(c).then(woorden => this.woorden = woorden));
-    
+
     //this.latijnService.getWoorden(this.caput).then(woorden => this.woorden = woorden);
 
   }
 
+  change(): void {
+    this.selected = this.selectedWoordTot != null && this.selectedWoordVan != null;
+    console.log(this.selected);
+  }
 
+  log(): void {
+    if (this.selectedWoordVan && this.selectedWoordTot) {
+      console.log(this.selectedWoordVan.id);
+      console.log(this.selectedWoordTot.id);
+    }
+  }
+
+  selectWoorden(): void {
+    //no need to go to the service for this, we already have all the woords of the caput
+    /* this.latijnService.getWoordenVanTot(this.selectedWoordVan.id, this.selectedWoordTot.id)
+    .then(w=>this.selectedWoorden=w)
+    .then(w=>console.log(this.selectedWoorden.length)); */
+    var van = this.selectedWoordVan.id;
+    var tot = this.selectedWoordTot.id;
+    this.selectedWoorden = this.woorden.filter(woord => woord.id >= van && woord.id <= tot);
+    console.log(this.selectedWoorden.length)
+  }
 }

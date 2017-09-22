@@ -12,7 +12,7 @@ import { AfvragenComponent } from '../latijn/afvragen/afvragen.component';
 const appRoutes: Routes = [
   { path: 'latijn', component: LatijnComponent },
   { path: 'latijn/caput/:id', component: CaputComponent },
-  { path: 'latijn/woordenleren/:id', component: LatijnWoordenLerenComponent },
+  { path: 'latijn/woordenleren/:van/:tot', component: LatijnWoordenLerenComponent },
   { path: 'latijn/afvragen/:id', component: AfvragenComponent },
   
   /*{ path: '**', component: PageNotFoundComponent }*/

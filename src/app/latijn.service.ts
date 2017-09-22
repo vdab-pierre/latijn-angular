@@ -26,6 +26,13 @@ export class LatijnService {
       .catch(this.handleError);
   }
 
+  getWoordenVanTot(van:number,tot:number):Promise<Woord[]>{
+    return this.http.get(this.woordenUrl)
+    .toPromise()
+    .then((response: any) => (response.json().data as Woord[]).filter(woord=>woord.id>=van && woord.id<=tot))
+    .catch(this.handleError);
+  }
+
   getCaput(id: number): Promise<Caput> {
     const url = `${this.caputUrl}/${id}`;
     return this.http.get(url)

@@ -25,17 +25,22 @@
   </table>
 </div>
 <div>
-  Van
-  <select [(ngModel)]="selectedWoord" required>
-  <option *ngFor="let woord of woorden" [ngValue]="woorden">{{woord.id}} - {{woord.term}}</option>
+  <p>Selecteer woorden, of kies voor de hele Caput:</p>
+  <div>
+    <label><input [(ngModel)]="heleCaput" type="checkbox"/>Hele Caput</label>
+  </div>
+  <div *ngIf="!heleCaput">
+    Van
+    <select [(ngModel)]="selectedWoordVan" (change)="change()" required>
+  <option *ngFor="let woord of woorden" [ngValue]="woord">{{woord.id}} - {{woord.term}}</option>
 </select> t/m
-  <select [(ngModel)]="selectedWoord" required>
-    <option *ngFor="let woord of woorden" [ngValue]="woorden">{{woord.id}} - {{woord.term}}</option>
+    <select [(ngModel)]="selectedWoordTot" (change)="change()" required>
+    <option *ngFor="let woord of woorden" [ngValue]="woord">{{woord.id}} - {{woord.term}}</option>
   </select>
-
-  <nav>
-    <a routerLink="/latijn/afvragen/${caput.id}">Afvragen</a>
-    <a routerLink="/latijn/woordenleren/${caput.id}">Leren</a>
-  </nav>
+  </div>
+  <div *ngIf="selected">
+    <button (click)="selectWoorden()">Leren</button>
+    <button (click)="log()">Afvragen</button>
+  </div>
 
 </div>
