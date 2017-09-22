@@ -38,9 +38,15 @@
     <option *ngFor="let woord of woorden" [ngValue]="woord">{{woord.id}} - {{woord.term}}</option>
   </select>
   </div>
-  <div *ngIf="selected">
-    <button (click)="selectWoorden()">Leren</button>
+  <div *ngIf="selected || heleCaput">
+    <button (click)="startWoordenLeren()">Leren</button>
     <button (click)="log()">Afvragen</button>
+  </div>
+  <div *ngIf="leren">
+    <p>Lees het woord aandachtig, als je klaar bent druk dan op de test knop.</p>
+    <div id="woorLeren">
+
+    </div>
   </div>
 
 </div>
