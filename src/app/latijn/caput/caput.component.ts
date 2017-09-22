@@ -13,8 +13,9 @@ import { LatijnService } from '../../latijn.service'
   styleUrls: ['./caput.component.css']
 })
 export class CaputComponent implements OnInit {
-  caput: Caput;
-  woorden: Woord[];
+  caput: any;
+  woorden: any[];
+  selectedWoord:any={};
   constructor(private latijnService: LatijnService, private route: ActivatedRoute, private location: Location) { }
 
   ngOnInit() {

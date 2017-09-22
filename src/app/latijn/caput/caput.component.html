@@ -25,6 +25,17 @@
   </table>
 </div>
 <div>
+  Van
+  <select [(ngModel)]="selectedWoord" required>
+  <option *ngFor="let woord of woorden" [ngValue]="woorden">{{woord.id}} - {{woord.term}}</option>
+</select> t/m
+  <select [(ngModel)]="selectedWoord" required>
+    <option *ngFor="let woord of woorden" [ngValue]="woorden">{{woord.id}} - {{woord.term}}</option>
+  </select>
+
+  <nav>
     <a routerLink="/latijn/afvragen/${caput.id}">Afvragen</a>
     <a routerLink="/latijn/woordenleren/${caput.id}">Leren</a>
+  </nav>
+
 </div>
