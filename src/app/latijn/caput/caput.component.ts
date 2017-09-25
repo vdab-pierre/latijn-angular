@@ -42,14 +42,14 @@ export class CaputComponent implements OnInit {
     //this.latijnService.getWoorden(this.caput).then(woorden => this.woorden = woorden);
 
   }
-  init():void{
-    this.huidigWoordIndex=0;
-    this.leren=false;
+  init(): void {
+    this.huidigWoordIndex = 0;
+    this.leren = false;
   }
 
   change(): void {
     this.selected = this.selectedWoordTot != null && this.selectedWoordVan != null;
-    this.huidigWoordIndex=0;
+    this.huidigWoordIndex = 0;
     console.log(this.selected);
   }
 
@@ -82,11 +82,45 @@ export class CaputComponent implements OnInit {
     this.leerWoord();
   }
 
-  nextWoord():void{
-    if((this.huidigWoordIndex + 1)<this.selectedWoorden.length){this.huidigWoordIndex++};
+  nextWoord(): void {
+    if ((this.huidigWoordIndex + 1) < this.selectedWoorden.length) { this.huidigWoordIndex++ };
   }
 
-  leerWoord():void{
+  leerWoord(): void {
 
+  }
+
+  checkGenus(genus: string, el: any): void {
+if (genus != "" && genus != this.selectedWoorden[this.huidigWoordIndex].genus) {
+      //el.focus();
+      el.select();  //el.setSelectionRange(0,el.value.length); in sommige browsers 
+      if (!el.classList.contains("fout")) el.classList.add("fout");
+      console.log(el.parentNode.className);
+      /* console.log(`vertaling: ${vert} nr ${index}`); */
+    } else {
+      if (el.classList.contains("fout")) el.classList.remove("fout");
+    }
+  }
+  checkVert(index: number, vert: string, el: any): void {
+    if (vert != "" && vert != this.selectedWoorden[this.huidigWoordIndex].vert[index].term) {
+      //el.focus();
+      el.select();  //el.setSelectionRange(0,el.value.length); in sommige browsers 
+      if (!el.classList.contains("fout")) el.classList.add("fout");
+      console.log(el.parentNode.className);
+      /* console.log(`vertaling: ${vert} nr ${index}`); */
+    } else {
+      if (el.classList.contains("fout")) el.classList.remove("fout");
+    }
+  }
+  checkAanvInf(index: number, aanvInf: string, el: any): void {
+    if (aanvInf != "" && aanvInf != this.selectedWoorden[this.huidigWoordIndex].aanvInf[index].term) {
+      //el.focus();
+      el.select();  //el.setSelectionRange(0,el.value.length); in sommige browsers 
+      if (!el.classList.contains("fout")) el.classList.add("fout");
+      console.log(el.parentNode.className);
+      /* console.log(`vertaling: ${vert} nr ${index}`); */
+    } else {
+      if (el.classList.contains("fout")) el.classList.remove("fout");
+    }
   }
 }

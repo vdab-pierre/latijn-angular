@@ -24,7 +24,7 @@
     </tbody>
   </table>
 </div>
-<div>
+<div style="float:left">
   <p>Selecteer woorden, of kies voor de hele Caput:</p>
   <div>
     <label><input [(ngModel)]="heleCaput" type="checkbox" (click)="init()"/>Hele Caput</label>
@@ -43,10 +43,43 @@
     <button (click)="log()">Afvragen</button>
   </div>
   <div *ngIf="leren">
-    <p>Lees het woord aandachtig, als je klaar bent druk dan op de test knop.</p>
+    <p>Lees het woord aandachtig, vul de tekstvakken en als je klaar bent druk dan op volgende.</p>
     <div id="woorLeren">
-        <p>{{selectedWoorden[huidigWoordIndex].term}}</p>
-        <button (click)="nextWoord()">Next</button>
+        <form>
+            <!-- Form start -->
+            <p>{{selectedWoorden[huidigWoordIndex].term}}</p>
+            <div class="row">
+                <div *ngIf="selectedWoorden[huidigWoordIndex].genus" class="col-md-2">
+                    <div class="form-group">
+                        <label class="control-label" for="genus">Genus</label>
+                        <input id="genus" name="genus" type="text" placeholder="{{selectedWoorden[huidigWoordIndex].genus}}" class="form-control input-md"
+                           (blur)="checkGenus($event.target.value,$event.target)">
+                    </div>
+                </div>
+                <div class="col-md-5">
+                    <div class="form-group">
+                        <label class="control-label" for="vertaling">Vertaling</label>
+                        <input *ngFor="let v of selectedWoorden[huidigWoordIndex].vert;let i = index" id="vert" 
+                              name="vert" type="text" placeholder="{{v.term}}" class="form-control input-md" (blur)="checkVert(i,$event.target.value,$event.target)">
+                    </div>
+                </div>
+                <div class="col-md-5">
+                    <div class="form-group">
+                        <label class="control-label" for="vertaling">Aanv. Info</label>
+                        <input *ngFor="let a of selectedWoorden[huidigWoordIndex].aanvInf;let i = index" id="vertaling{{i}}"
+                           name="vertaling{{i}}" type="text" placeholder="{{a.term}}" class="form-control input-md" (blur)="checkAanvInf(i,$event.target.value,$event.target)">
+                    </div>
+                </div>
+                <!-- Button -->
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <button id="singlebutton" name="singlebutton" class="btn btn-default" (click)="nextWoord()">Volgende</button>
+                    </div>
+                </div>
+            </div>
+        </form>
+        
+        
     </div>
   </div>
 
