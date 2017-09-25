@@ -27,7 +27,7 @@
 <div>
   <p>Selecteer woorden, of kies voor de hele Caput:</p>
   <div>
-    <label><input [(ngModel)]="heleCaput" type="checkbox"/>Hele Caput</label>
+    <label><input [(ngModel)]="heleCaput" type="checkbox" (click)="init()"/>Hele Caput</label>
   </div>
   <div *ngIf="!heleCaput">
     Van
@@ -45,7 +45,8 @@
   <div *ngIf="leren">
     <p>Lees het woord aandachtig, als je klaar bent druk dan op de test knop.</p>
     <div id="woorLeren">
-
+        <p>{{selectedWoorden[huidigWoordIndex].term}}</p>
+        <button (click)="nextWoord()">Next</button>
     </div>
   </div>
 

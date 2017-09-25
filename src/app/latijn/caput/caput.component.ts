@@ -19,7 +19,7 @@ export class CaputComponent implements OnInit {
   selectedWoordVan = null;
   selectedWoordTot = null;
   selectedWoorden: any[];
-  huidigWoordIndex = null;
+  huidigWoordIndex = 0;
   selected: boolean;
   heleCaput: boolean;
   leren: boolean;
@@ -42,9 +42,14 @@ export class CaputComponent implements OnInit {
     //this.latijnService.getWoorden(this.caput).then(woorden => this.woorden = woorden);
 
   }
+  init():void{
+    this.huidigWoordIndex=0;
+    this.leren=false;
+  }
 
   change(): void {
     this.selected = this.selectedWoordTot != null && this.selectedWoordVan != null;
+    this.huidigWoordIndex=0;
     console.log(this.selected);
   }
 
@@ -74,11 +79,14 @@ export class CaputComponent implements OnInit {
   startWoordenLeren(): void {
     this.selectWoorden();
     this.leren = true;
-    this.huidigWoordIndex = 0;
     this.leerWoord();
   }
 
+  nextWoord():void{
+    if((this.huidigWoordIndex + 1)<this.selectedWoorden.length){this.huidigWoordIndex++};
+  }
+
   leerWoord():void{
-    
+
   }
 }
