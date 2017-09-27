@@ -1,30 +1,30 @@
-<div style="float:left" *ngIf="caput">
-  <p>
+<div class="container-fluid" *ngIf="caput">
+  <h4>
     Woorden van {{caput.naam}}:
-  </p>
-  <table>
+  </h4>
+  <table class="table-hover table-responsive">
     <thead>
       <tr>
-        <th>#</th>
-        <th>Woord</th>
-        <th>Genus</th>
-        <th>Vertaling</th>
-        <th>Aanvullende informatie</th>
+        <th class="col-md-1">#</th>
+        <th class="col-md-4">Woord</th>
+        <th class="col-md-1">Gen.</th>
+        <th class="col-md-4">Vertaling</th>
+        <th class="col-md-2">Aanvullende informatie</th>
       </tr>
 
     </thead>
     <tbody>
       <tr *ngFor="let woord of woorden">
-        <td>{{woord.id}}</td>
-        <td>{{woord.term}}</td>
-        <td>{{woord.genus}}</td>
-        <td><span *ngFor="let v of woord.vert">{{v.term}} </span></td>
-        <td><span *ngFor="let a of woord.aanvInf">{{a.term}} </span></td>
+        <td class="col-md-1">{{woord.id}}</td>
+        <td class="col-md-4">{{woord.term}}</td>
+        <td class="col-md-1">{{woord.genus}}</td>
+        <td class="col-md-4"><span *ngFor="let v of woord.vert">{{v.term}} </span></td>
+        <td class="col-md-2"><span *ngFor="let a of woord.aanvInf">{{a.term}} </span></td>
       </tr>
     </tbody>
   </table>
 </div>
-<div style="float:left">
+<!-- <div style="float:left">
   <p>Selecteer woorden, of kies voor de hele Caput:</p>
   <div>
     <label><input [(ngModel)]="heleCaput" type="checkbox" (click)="init()"/>Hele Caput</label>
@@ -46,7 +46,7 @@
     <p>Lees het woord aandachtig, vul de tekstvakken en als je klaar bent druk dan op volgende.</p>
     <div id="woorLeren">
         <form>
-            <!-- Form start -->
+            
             <p>{{selectedWoorden[huidigWoordIndex].term}}</p>
             <div class="row">
                 <div *ngIf="selectedWoorden[huidigWoordIndex].genus" class="col-md-2">
@@ -66,14 +66,14 @@
                 <div class="col-md-5">
                     <div class="form-group">
                         <label class="control-label" for="vertaling">Aanv. Info</label>
-                        <input *ngFor="let a of selectedWoorden[huidigWoordIndex].aanvInf;let i = index" id="vertaling{{i}}"
-                           name="vertaling{{i}}" type="text" placeholder="{{a.term}}" class="form-control input-md" (blur)="checkAanvInf(i,$event.target.value,$event.target)">
+                        <input *ngFor="let a of selectedWoorden[huidigWoordIndex].aanvInf;let i = index" id="aanvInf"
+                           name="aanvInf" type="text" placeholder="{{a.term}}" class="form-control input-md" (blur)="checkAanvInf(i,$event.target.value,$event.target)">
                     </div>
                 </div>
-                <!-- Button -->
+                
                 <div class="col-md-12">
                     <div class="form-group">
-                        <button id="singlebutton" name="singlebutton" class="btn btn-default" (click)="nextWoord()">Volgende</button>
+                        <button id="buttonNext" name="buttonNext" class="btn btn-default" (click)="nextWoord(this.form)">Volgende</button>
                     </div>
                 </div>
             </div>
@@ -83,4 +83,4 @@
     </div>
   </div>
 
-</div>
+</div> -->

@@ -20,11 +20,12 @@ export class CaputComponent implements OnInit {
   selectedWoordTot = null;
   selectedWoorden: any[];
   huidigWoordIndex = 0;
-  selected: boolean;
+  selected: boolean; //selectedWoordTot en selectedWoordVan niet null
   heleCaput: boolean;
   leren: boolean;
   afvragen: boolean;
-
+  aantGeg: number; //aantal genus + vertalingen + aanv. info van de selectedWoorden
+  aantFout: number;
 
   constructor(private latijnService: LatijnService, private route: ActivatedRoute, private location: Location) { }
 
@@ -74,28 +75,31 @@ export class CaputComponent implements OnInit {
       this.selectedWoorden = this.woorden;
     }
     console.log(this.selectedWoorden.length)
+    this.berekenAantGeg();
   }
 
   startWoordenLeren(): void {
     this.selectWoorden();
     this.leren = true;
-    
+
   }
 
-  nextWoord(): void {
+  nextWoord(el): void {
     //nog iets voorzien voor als we klaar zijn
-    if ((this.huidigWoordIndex + 1) < this.selectedWoorden.length) { this.huidigWoordIndex++ };
+    if ((this.huidigWoordIndex + 1) < this.selectedWoorden.length) {
+      this.huidigWoordIndex++;
+      console.log(el);
+    } else { 
+      console.log(`je hebt ${this.aantGeg-this.aantFout} juist ingevuld van de ${this.aantGeg} gegevens.`);
+    };
   }
-
- 
 
   checkGenus(genus: string, el: any): void {
     if (genus != "" && genus != this.selectedWoorden[this.huidigWoordIndex].genus) {
       //el.focus();
       el.select();  //el.setSelectionRange(0,el.value.length); in sommige browsers 
       if (!el.classList.contains("fout")) el.classList.add("fout");
-      console.log(el.parentNode.className);
-      /* console.log(`vertaling: ${vert} nr ${index}`); */
+      this.aantFout += 1;
     } else {
       if (el.classList.contains("fout")) el.classList.remove("fout");
     }
@@ -105,8 +109,7 @@ export class CaputComponent implements OnInit {
       //el.focus();
       el.select();  //el.setSelectionRange(0,el.value.length); in sommige browsers 
       if (!el.classList.contains("fout")) el.classList.add("fout");
-      console.log(el.parentNode.className);
-      /* console.log(`vertaling: ${vert} nr ${index}`); */
+      this.aantFout += 1;
     } else {
       if (el.classList.contains("fout")) el.classList.remove("fout");
     }
@@ -117,9 +120,19 @@ export class CaputComponent implements OnInit {
       el.select();  //el.setSelectionRange(0,el.value.length); in sommige browsers 
       if (!el.classList.contains("fout")) el.classList.add("fout");
       console.log(el.parentNode.className);
-      /* console.log(`vertaling: ${vert} nr ${index}`); */
+      this.aantFout += 1;
     } else {
       if (el.classList.contains("fout")) el.classList.remove("fout");
     }
+  }
+
+  berekenAantGeg(): void {
+    var aant = 0;
+    this.selectedWoorden.forEach(el => {
+      aant += el.genus ? 1 : 0;
+      aant += el.vert.length;
+      aant += el.aanvInf.length;
+    });
+    this.aantGeg = aant;
   }
 }
