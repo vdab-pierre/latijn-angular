@@ -18,19 +18,24 @@ export class LatijnService {
       .then((response: any) => response.json().data as Caput[])
       .catch(this.handleError);
   }
-
-  getWoorden(caput:Caput): Promise<Woord[]> {
+  getAllWoorden(): Promise<Woord> {
     return this.http.get(this.woordenUrl)
       .toPromise()
-      .then((response: any) => (response.json().data as Woord[]).filter(woord=>woord.caput.id===caput.id))
+      .then((response: any) => (response.json().data as Woord[]))
+      .catch(this.handleError);
+  }
+  getWoorden(caput: Caput): Promise<Woord[]> {
+    return this.http.get(this.woordenUrl)
+      .toPromise()
+      .then((response: any) => (response.json().data as Woord[]).filter(woord => woord.caput.id === caput.id))
       .catch(this.handleError);
   }
 
-  getWoordenVanTot(van:number,tot:number):Promise<Woord[]>{
+  getWoordenVanTot(van: number, tot: number): Promise<Woord[]> {
     return this.http.get(this.woordenUrl)
-    .toPromise()
-    .then((response: any) => (response.json().data as Woord[]).filter(woord=>woord.id>=van && woord.id<=tot))
-    .catch(this.handleError);
+      .toPromise()
+      .then((response: any) => (response.json().data as Woord[]).filter(woord => woord.id >= van && woord.id <= tot))
+      .catch(this.handleError);
   }
 
   getCaput(id: number): Promise<Caput> {

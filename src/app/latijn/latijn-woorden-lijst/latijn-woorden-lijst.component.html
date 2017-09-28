@@ -1,3 +1,28 @@
-<p>
-  latijn-woorden-lijst works!
-</p>
+<div class="container-fluid">
+  <button *ngFor="let c of caputs; let i = index" type="button" class="btn btn-primary" data-toggle="button" (click)="filterWoorden(i)">
+      {{c.naam}}
+  </button>
+  <table class="table-hover table-responsive">
+    <thead>
+      <tr>
+        <th class="col-md-1">Caput #</th>
+        <th class="col-md-1">#</th>
+        <th class="col-md-4">Woord</th>
+        <th class="col-md-1">Gen.</th>
+        <th class="col-md-4">Vertaling</th>
+        <th class="col-md-2">Aanvullende informatie</th>
+      </tr>
+
+    </thead>
+    <tbody>
+      <tr *ngFor="let woord of alleWoorden">
+        <td class="col-md-1">{{woord.caput.id}}</td>
+        <td class="col-md-1">{{woord.id}}</td>
+        <td class="col-md-4">{{woord.term}}</td>
+        <td class="col-md-1">{{woord.genus}}</td>
+        <td class="col-md-4"><span *ngFor="let v of woord.vert">{{v.term}} </span></td>
+        <td class="col-md-2"><span *ngFor="let a of woord.aanvInf">{{a.term}} </span></td>
+      </tr>
+    </tbody>
+  </table>
+</div>
