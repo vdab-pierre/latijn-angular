@@ -25,11 +25,11 @@ export class LatijnWoordenLijstComponent implements OnInit {
   woorden: any[];
   alleWoorden: any[];
 
-  constructor(private latijnService: LatijnService) { }
+  constructor(private _latijnService: LatijnService) { }
 
   ngOnInit() {
-    this.latijnService.getCaputs().then(c => this.caputs = c);
-    this.latijnService.getAllWoorden().then((w: any) => this.woorden = w);
+    this._latijnService.getCaputs().then(c => this.caputs = c);
+    this._latijnService.getAllWoorden().then((w: any) => this.woorden = w);
   }
 
   filterWoorden(i: number): void {

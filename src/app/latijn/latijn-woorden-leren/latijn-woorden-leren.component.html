@@ -1,6 +1,8 @@
-<button type="button" (click)="back()">Back</button>
-<h1>
-  Leren
-</h1>
-<p>{{caput.naam}}</p>
-<p></p>
+<div class="container-fluid">
+  <input *ngFor="let c of caputs" 
+        type="checkbox"
+        [(ngModel)]="selectionStatusOfCaputs[c.id]"
+        [value]="c.id"/>
+       
+  <input [(ngModel)]="alleCaputs" type="checkbox" autocomplete="off"/>Alle Caputs
+</div>
