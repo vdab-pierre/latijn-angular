@@ -1,7 +1,11 @@
 <div class="container-fluid">
-  <button *ngFor="let c of caputs; let i = index" type="button" class="btn btn-primary" data-toggle="button" (click)="filterWoorden(i)">
+  <div class="btn-group" data-toggle="buttons">
+  <button *ngFor="let c of caputs; let i = index" type="button" 
+            class="btn btn-primary" (click)="filterWoorden(i)">
       {{c.naam}}
   </button>
+  <button type="button" class="btn btn-primary" (click)="geefAlleWoorden()">Alle</button>
+</div>
   <table class="table-hover table-responsive">
     <thead>
       <tr>
@@ -15,7 +19,7 @@
 
     </thead>
     <tbody>
-      <tr *ngFor="let woord of alleWoorden">
+      <tr *ngFor="let woord of woorden">
         <td class="col-md-1">{{woord.caput.id}}</td>
         <td class="col-md-1">{{woord.id}}</td>
         <td class="col-md-4">{{woord.term}}</td>

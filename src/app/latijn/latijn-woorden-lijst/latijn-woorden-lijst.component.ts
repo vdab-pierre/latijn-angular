@@ -29,11 +29,15 @@ export class LatijnWoordenLijstComponent implements OnInit {
 
   ngOnInit() {
     this.latijnService.getCaputs().then(c => this.caputs = c);
-    this.latijnService.getAllWoorden().then((w: any) => this.alleWoorden = w).then(w=>console.log(this.alleWoorden.length));
-    this.woorden = this.alleWoorden;
+    this.latijnService.getAllWoorden().then((w: any) => this.woorden = w);
   }
 
   filterWoorden(i: number): void {
-    this.woorden.filter(w => w.caput.id === i + 1);
+    if (!this.alleWoorden) { this.alleWoorden = this.woorden };
+    this.woorden = this.alleWoorden.filter(w => w.caput.id === i + 1);
+  }
+
+  geefAlleWoorden():void{
+    this.woorden=this.alleWoorden;
   }
 }
