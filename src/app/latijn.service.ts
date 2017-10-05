@@ -12,7 +12,7 @@ export class LatijnService {
 
   constructor(private http: Http) { }
 
-  getCaputs(): Promise<Caput[]> {
+  getAllCaputs(): Promise<Caput[]> {
     return this.http.get(this.caputUrl)
       .toPromise()
       .then((response: any) => response.json().data as Caput[])
@@ -24,13 +24,18 @@ export class LatijnService {
       .then((response: any) => (response.json().data as Woord[]))
       .catch(this.handleError);
   }
-  getWoorden(caput: Caput): Promise<Woord[]> {
+  getWoordenVanCaput(caput: Caput): Promise<Woord[]> {
     return this.http.get(this.woordenUrl)
       .toPromise()
       .then((response: any) => (response.json().data as Woord[]).filter(woord => woord.caput.id === caput.id))
       .catch(this.handleError);
   }
-
+  /* getWoordenVanCaputs(caputs: Caput[]): Promise<Woord[]> {
+    return this.http.get(this.woordenUrl)
+      .toPromise()
+      .then((response: any) => (response.json().data as Woord[]).filter(woord => caputs.forEach(c=>woord.caput.id===c.id)))
+      .catch(this.handleError);
+  } */
   getWoordenVanTot(van: number, tot: number): Promise<Woord[]> {
     return this.http.get(this.woordenUrl)
       .toPromise()

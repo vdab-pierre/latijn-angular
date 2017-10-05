@@ -1,8 +1,13 @@
-<div class="container-fluid">
-  <input *ngFor="let c of caputs" 
-        type="checkbox"
-        [(ngModel)]="selectionStatusOfCaputs[c.id]"
-        [value]="c.id"/>
-       
-  <input [(ngModel)]="alleCaputs" type="checkbox" autocomplete="off"/>Alle Caputs
+<div>
+  <div class="well">
+    <div>
+      Van
+      <select [(ngModel)]="selectedWoordVan" (ngModelChange)="onChange($event)" name="sel1" required>
+        <option *ngFor="let woord of alleWoorden" [ngValue]="woord">{{woord.id}} - {{woord.term}}</option>
+      </select> t/m
+      <select [(ngModel)]="selectedWoordTot" required>
+          <option *ngFor="let woord of woordenVan" [ngValue]="woord">{{woord.id}} - {{woord.term}}</option>
+        </select>
+    </div>
+  </div>
 </div>

@@ -28,7 +28,7 @@ export class LatijnWoordenLijstComponent implements OnInit {
   constructor(private _latijnService: LatijnService) { }
 
   ngOnInit() {
-    this._latijnService.getCaputs().then(c => this.caputs = c);
+    this._latijnService.getAllCaputs().then(c => this.caputs = c);
     this._latijnService.getAllWoorden().then((w: any) => this.woorden = w);
   }
 

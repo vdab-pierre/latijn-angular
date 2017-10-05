@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit} from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser'
 import { Location } from '@angular/common';
 //import { FormControl, FormGroup, FormArray, FormBuilder, Validators } from '@angular/forms';
@@ -14,29 +14,23 @@ import { LatijnService } from '../../latijn.service'
   styleUrls: ['./latijn-woorden-leren.component.css']
 })
 export class LatijnWoordenLerenComponent implements OnInit {
-  caputs: any[];
-  selectionStatusOfCaputs:any={};
-  
-  //caputForm: FormGroup;
 
-  alleCaputs: boolean;
-  selectedCaputs: boolean[];
+  alleWoorden: any[];
+  selectedWoorden = [];
+  selectedWoordVan = null;
+  selectedWoordTot = null;
+  woordenVan: any[];
 
   constructor(private _latijnService: LatijnService,
     private _location: Location) { }
 
   ngOnInit() {
-    
+    this._latijnService.getAllWoorden().then((w: any) => this.alleWoorden = w);
   }
 
-  onChangeCaput(data) {
-    data.checked = !data.checked;
-   /*  this.caputForm.controls.caputs.value.filter(x=>x.checked).forEach(element => {
-      console.log(element.checked) 
-    });*/
+  onChange(w): void {
+    this.woordenVan = this.alleWoorden.filter(woord => woord.id >= w.id || woord.id <= this.alleWoorden[this.alleWoorden.length - 1]);
   }
-
-
 
   back(): void {
     this._location.back();

@@ -38,7 +38,7 @@ export class CaputComponent implements OnInit {
 
     this.route.paramMap
       .switchMap((params: ParamMap) => this.latijnService.getCaput(+params.get('id')))
-      .subscribe((c: Caput) => this.latijnService.getWoorden(c).then(woorden => this.woorden = woorden));
+      .subscribe((c: Caput) => this.latijnService.getWoordenVanCaput(c).then(woorden => this.woorden = woorden));
 
     //this.latijnService.getWoorden(this.caput).then(woorden => this.woorden = woorden);
 
@@ -47,12 +47,12 @@ export class CaputComponent implements OnInit {
     this.huidigWoordIndex = 0;
     this.leren = false;
   }
-
+/* 
   change(): void {
     this.selected = this.selectedWoordTot != null && this.selectedWoordVan != null;
     this.huidigWoordIndex = 0;
     console.log(this.selected);
-  }
+  } */
 
   log(): void {
     if (this.selectedWoordVan && this.selectedWoordTot) {

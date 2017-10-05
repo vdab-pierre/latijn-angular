@@ -22,7 +22,7 @@ export class LatijnComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.latijnService.getCaputs().then((caputs:Caput[])=>this.caputs=caputs);
+    this.latijnService.getAllCaputs().then((caputs:Caput[])=>this.caputs=caputs);
     //console.log(`aantal caputs: ${this.caputs.length}`);
   }
 
