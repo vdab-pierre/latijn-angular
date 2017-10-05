@@ -1,4 +1,4 @@
-import { Component, OnInit} from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser'
 import { Location } from '@angular/common';
 //import { FormControl, FormGroup, FormArray, FormBuilder, Validators } from '@angular/forms';
@@ -28,8 +28,31 @@ export class LatijnWoordenLerenComponent implements OnInit {
     this._latijnService.getAllWoorden().then((w: any) => this.alleWoorden = w);
   }
 
-  onChange(w): void {
+  onChangeVan(w): void {
     this.woordenVan = this.alleWoorden.filter(woord => woord.id >= w.id || woord.id <= this.alleWoorden[this.alleWoorden.length - 1]);
+  }
+
+  selectWoorden(): void {
+    this.selectedWoorden = this.alleWoorden.filter(woord => woord.id >= this.selectedWoordVan.id && woord.id <= this.selectedWoordTot.id);
+  }
+
+  leren: boolean = false;
+  huidigWoordIndex=0;
+
+  btnStart(): void {
+    this.selectWoorden();
+    this.leren = true;
+    this.huidigWoordIndex=0;
+  }
+
+  nextWoord(el): void {
+    //nog iets voorzien voor als op het einde van de reeks zijn
+    if ((this.huidigWoordIndex + 1) < this.selectedWoorden.length) {
+      this.huidigWoordIndex++;
+      console.log(el);
+    } else { 
+      //console.log(`je hebt ${this.aantGeg-this.aantFout} juist ingevuld van de ${this.aantGeg} gegevens.`);
+    };
   }
 
   back(): void {
