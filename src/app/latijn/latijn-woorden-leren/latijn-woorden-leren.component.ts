@@ -37,21 +37,25 @@ export class LatijnWoordenLerenComponent implements OnInit {
   }
 
   leren: boolean = false;
-  huidigWoordIndex=0;
+  huidigWoordIndex = 0;
 
   btnStart(): void {
     this.selectWoorden();
     this.leren = true;
-    this.huidigWoordIndex=0;
+    this.huidigWoordIndex = 0;
   }
-
+  buttonNextText: string = "Next";
+  toonResultaat = false;
   nextWoord(el): void {
     //nog iets voorzien voor als op het einde van de reeks zijn
     if ((this.huidigWoordIndex + 1) < this.selectedWoorden.length) {
       this.huidigWoordIndex++;
       console.log(el);
-    } else { 
+    } else {
       //console.log(`je hebt ${this.aantGeg-this.aantFout} juist ingevuld van de ${this.aantGeg} gegevens.`);
+      this.buttonNextText = "Klaar!";
+      this.leren = false;
+      this.toonResultaat = true;
     };
   }
 
