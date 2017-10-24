@@ -24,7 +24,7 @@ export class LatijnWoordenLijstComponent implements OnInit {
   caputs: any[];
   woorden: any[];
   alleWoorden: any[];
-
+  getypt: any[];
   constructor(private _latijnService: LatijnService) { }
 
   ngOnInit() {
@@ -37,7 +37,9 @@ export class LatijnWoordenLijstComponent implements OnInit {
     this.woorden = this.alleWoorden.filter(w => w.caput.id === i + 1);
   }
 
-  geefAlleWoorden():void{
-    this.woorden=this.alleWoorden;
+  geefAlleWoorden(): void {
+    this.woorden = this.alleWoorden;
+    
   }
+  
 }

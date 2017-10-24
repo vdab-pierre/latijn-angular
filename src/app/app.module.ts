@@ -15,6 +15,8 @@ import { AfvragenComponent } from './latijn/afvragen/afvragen.component';
 import { LatijnWoordenLerenComponent } from './latijn/latijn-woorden-leren/latijn-woorden-leren.component';
 import {LatijnService} from './latijn.service';
 import { LatijnWoordenLijstComponent } from './latijn/latijn-woorden-lijst/latijn-woorden-lijst.component';
+import { TestRfComponent } from './test-rf/test-rf.component';
+
 
 @NgModule({
   declarations: [
@@ -23,7 +25,8 @@ import { LatijnWoordenLijstComponent } from './latijn/latijn-woorden-lijst/latij
     CaputComponent,
     AfvragenComponent,
     LatijnWoordenLerenComponent,
-    LatijnWoordenLijstComponent, 
+    LatijnWoordenLijstComponent,
+    TestRfComponent, 
   ],
   imports: [
     BrowserModule,FormsModule,ReactiveFormsModule,AppRoutingModule,HttpModule,InMemoryWebApiModule.forRoot(InMemoryDataService)

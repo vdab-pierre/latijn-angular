@@ -1,0 +1,11 @@
+<form [formGroup]="woordForm" (ngSubmit)="onSubmit(woordForm)" novalidate>
+  {{woord.term}}
+  <input formControlName="genus" placeholder="{{woord.genus}}">
+  <div formArrayName="vert" *ngFor="let v of woordForm.get('vert').controls;let i= index">
+    <input [name]="i" placeholder="{{woord.vert[i].term}}">
+  </div>
+  <div *ngFor="let a of woord.aanvInf;let i= index">
+    <input [name]="i" placeholder="{{woord.aanvInf[i].term}}">
+  </div>
+  <button type="submit">Send</button>
+</form>

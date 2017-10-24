@@ -3,7 +3,7 @@
     <h4>Selecteer de woorden die je wil leren:</h4>
     <div class="form-group">
       Van
-      <select [(ngModel)]="selectedWoordVan" (ngModelChange)="onChangeVan($event)" name="sel1" required>
+      <select [(ngModel)]="selectedWoordVan" (ngModelChange)="onChangeVan($event)" required>
         <option *ngFor="let woord of alleWoorden" [ngValue]="woord">{{woord.id}} - {{woord.term}}</option>
       </select> t/m
       <select [(ngModel)]="selectedWoordTot" required>
@@ -13,70 +13,46 @@
     <input type="button" value="start" class="btn btn-primary" (click)="btnStart()" [disabled]="!btnStartEnabled" />
   </div>
 
-
-
-<div *ngIf="leren">
-  <p>Lees het woord aandachtig, vul de tekstvakken en als je klaar bent druk dan op volgende.</p>
-  <div id="woordLeren">
-    <form #f="ngForm">
-      <p>{{selectedWoorden[huidigWoordIndex].term}}</p>
+  <div *ngIf="leren">
+    <form [formGroup]="woordForm" (ngSubmit)="onSubmit(woordForm)" novalidate>
       <div class="row">
+          <p>{{selectedWoorden[huidigWoordIndex].term}}</p>
         <div *ngIf="selectedWoorden[huidigWoordIndex].genus" class="col-md-2">
           <div class="form-group">
             <label class="control-label" for="genus">Genus</label>
-            <input id="genus" name="genus" type="text" placeholder="{{selectedWoorden[huidigWoordIndex].genus}}" class="form-control input-md"
-              (blur)="checkGenus($event.target.value,$event.target)">
-          </div>
-        </div>
-        <div class="col-md-5">
-          <div class="form-group">
-            <label class="control-label" for="vertaling">Vertaling</label>
-            <input *ngFor="let v of selectedWoorden[huidigWoordIndex].vert;let i = index" id="vert" name="vert" type="text" placeholder="{{v.term}}"
-              class="form-control input-md" (blur)="checkVert(i,$event.target.value,$event.target)">
-          </div>
-        </div>
-        <div class="col-md-5">
-          <div class="form-group">
-            <label class="control-label" for="vertaling">Aanv. Info</label>
-            <input *ngFor="let a of selectedWoorden[huidigWoordIndex].aanvInf;let i = index" id="aanvInf" name="aanvInf" type="text"
-              placeholder="{{a.term}}" class="form-control input-md" (blur)="checkAanvInf(i,$event.target.value,$event.target)">
+            <input class="form-control" formControlName="genus" placeholder="{{selectedWoorden[huidigWoordIndex].genus}}">
           </div>
         </div>
 
-        <div class="col-md-12">
-          <div class="form-group">
-            <button id="buttonNext" name="buttonNext" class="btn btn-default" type="button" (click)="nextWoord(f)">{{buttonNextText}}</button>
-          </div>
-        </div>
       </div>
     </form>
-  </div>
 
-  <!-- <div *ngIf="leren">
+
+    <!-- <div *ngIf="leren">
     <p>Lees het woord aandachtig, vul de tekstvakken en als je klaar bent druk dan op volgende.</p>
     <div id="woordLeren">
-      <form #f="ngForm" novalidate (ngSumit)="nextWoord(f.value,f.valid)">
+      <form (ngSubmit)="nextWoord(f)" #f="ngForm">
         <p>{{selectedWoorden[huidigWoordIndex].term}}</p>
         <div class="row">
           <div *ngIf="selectedWoorden[huidigWoordIndex].genus" class="col-md-2">
             <div class="form-group">
               <label class="control-label" for="genus">Genus</label>
-              <input [(ngModel)]="getypt[huidigWoordIndex].genus" name="genus" type="text" placeholder="{{selectedWoorden[huidigWoordIndex].genus}}"
-                class="form-control input-md" (blur)="checkGenus($event.target.value,$event.target)">
+              <input id="genus" name="genus" type="text" placeholder="{{selectedWoorden[huidigWoordIndex].genus}}" class="form-control input-md"
+                (blur)="checkGenus($event.target.value,$event.target)">
             </div>
           </div>
           <div class="col-md-5">
             <div class="form-group">
               <label class="control-label" for="vertaling">Vertaling</label>
-              <input *ngFor="let v of selectedWoorden[huidigWoordIndex].vert;let i = index" [(ngModel)]="getypt[huidigWoordIndex].vert[i].term"
-                id="vert" name="vert" type="text" placeholder="{{v.term}}" class="form-control input-md" (blur)="checkVert(i,$event.target.value,$event.target)">
+              <input *ngFor="let v of selectedWoorden[huidigWoordIndex].vert;let i = index" id="vert" name="vert" type="text" placeholder="{{v.term}}"
+                class="form-control input-md" (blur)="checkVert(i,$event.target.value,$event.target)">
             </div>
           </div>
           <div class="col-md-5">
             <div class="form-group">
               <label class="control-label" for="vertaling">Aanv. Info</label>
-              <input [(ngModel)]="getypt[huidigWoordIndex].aanvInf[i].term" *ngFor="let a of selectedWoorden[huidigWoordIndex].aanvInf;let i = index"
-                id="aanvInf" name="aanvInf" type="text" placeholder="{{a.term}}" class="form-control input-md" (blur)="checkAanvInf(i,$event.target.value,$event.target)">
+              <input *ngFor="let a of selectedWoorden[huidigWoordIndex].aanvInf;let i = index" id="aanvInf" name="aanvInf" type="text"
+                placeholder="{{a.term}}" class="form-control input-md" (blur)="checkAanvInf(i,$event.target.value,$event.target)">
             </div>
           </div>
 

@@ -7,7 +7,7 @@ export class Woord {
     id:number;
     caput:Caput;
     term:string;
-    genus?:Genus;
+    genus?:string;
     vert:Vertaling[];
     aanvInf:AanvullendeInfo[];
 }
