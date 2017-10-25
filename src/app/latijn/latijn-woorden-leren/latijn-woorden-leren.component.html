@@ -14,9 +14,11 @@
   </div>
 
   <div *ngIf="leren">
+      <p>Lees het woord aandachtig, tik de juiste info in de tekstvakken en als je klaar bent druk dan op volgende. Als je klaar bent klik je op de knop Klaar.</p>
     <form [formGroup]="woordForm" (ngSubmit)="onSubmit(woordForm)" novalidate>
-      <div class="row">
-          <p>{{selectedWoorden[huidigWoordIndex].term}}</p>
+      <div>
+        <h4 class="form-group">{{selectedWoorden[huidigWoordIndex].term}}</h4>
+        
         <div *ngIf="selectedWoorden[huidigWoordIndex].genus" class="col-md-2">
           <div class="form-group">
             <label class="control-label" for="genus">Genus</label>
@@ -24,7 +26,30 @@
           </div>
         </div>
 
+        <div class="col-md-5">
+          <div class="form-group">
+            <label class="control-label" for="vert">Vertaling</label>
+            <input *ngFor="let v of selectedWoorden[huidigWoordIndex].vert;let i = index" id="vert" name="vert" type="text" placeholder="{{v.term}}"
+              class="form-control input-md" (blur)="checkVert(i,$event.target.value,$event.target)">
+          </div>
+        </div>
+
+        <div class="col-md-5">
+          <div class="form-group">
+            <label class="control-label" for="aanvInf">Aanv. Info</label>
+            <input *ngFor="let a of selectedWoorden[huidigWoordIndex].aanvInf;let i = index" id="aanvInf" name="aanvInf" type="text"
+              placeholder="{{a.term}}" class="form-control input-md" (blur)="checkAanvInf(i,$event.target.value,$event.target)">
+          </div>
+        </div>
+
+        <div class="col-md-12">
+            <div class="form-group">
+              <button id="buttonNext" name="buttonNext" class="btn btn-default" type="submit">Next</button>
+              <button id="buttonKlaar" name="buttonKlaar" class="btn btn-default disabled" type="submit">Klaar</button>
+            </div>
+          </div>
       </div>
+
     </form>
 
 

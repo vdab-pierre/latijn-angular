@@ -34,6 +34,9 @@ export class LatijnWoordenLerenComponent implements OnInit {
   aantGeg: number;
   aantFout: number;
 
+
+  toonResultaat = false;
+
   constructor(private _latijnService: LatijnService,
     private _location: Location, private _fb: FormBuilder) {
   }
@@ -99,7 +102,7 @@ export class LatijnWoordenLerenComponent implements OnInit {
 
   onSubmit(form: FormGroup) {
     console.log('valid?', form.valid);
-    console.log('genus', form.value.genus);
+    //console.log('genus', form.value.genus);
     console.log(form.value);
   }
 
@@ -151,15 +154,14 @@ export class LatijnWoordenLerenComponent implements OnInit {
           w.aanvInf.foreach(a=>a.term="");
         }) */
   }
+  
 
-  buttonNextText: string = "Next";
-  toonResultaat = false;
   nextWoord(form): void {
     //nog iets voorzien voor als op het einde van de reeks zijn
     if ((this.huidigWoordIndex + 2) === this.selectedWoorden.length) {
       //voorlaatste
       this.huidigWoordIndex++;
-      this.buttonNextText = "Klaar!";
+      
       console.log(this.huidigWoordIndex);
     } else if (this.huidigWoordIndex + 1 === this.selectedWoorden.length) {
       //laatste

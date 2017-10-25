@@ -1,11 +1,17 @@
 <form [formGroup]="woordForm" (ngSubmit)="onSubmit(woordForm)" novalidate>
   {{woord.term}}
   <input formControlName="genus" placeholder="{{woord.genus}}">
-  <div formArrayName="vert" *ngFor="let v of woordForm.get('vert').controls;let i= index">
-    <input [name]="i" placeholder="{{woord.vert[i].term}}">
+  <div formArrayName="vert">
+    <div *ngFor="let v of woordForm.get('vert').controls;let i= index" [formGroupName]="i">
+      <input formControlName="term" placeholder="{{woord.vert[i].term}}">
+    </div>
   </div>
-  <div *ngFor="let a of woord.aanvInf;let i= index">
-    <input [name]="i" placeholder="{{woord.aanvInf[i].term}}">
+
+  <div formArrayName="aanvInf">
+    <div *ngFor="let a of woordForm.get('aanvInf').controls;let i= index" [formGroupName]="i">
+      <input formControlName="term" placeholder="{{woord.aanvInf[i].term}}">
+    </div>
   </div>
+
   <button type="submit">Send</button>
 </form>

@@ -26,51 +26,19 @@ export class TestRfComponent implements OnInit {
       vert: this._fb.array([]),
       aanvInf: this._fb.array([])
     })
-    this.patch();
-  }
-patch(){
-  const vertCtrl = <FormArray>this.woordForm.controls.vert;
-  const aanvInfCtrl = <FormArray>this.woordForm.controls.aanvInf;
-
-  this.leegWoord.vert.forEach(el => {
-    vertCtrl.push(this._fb.control({
-      term:el.term
-    }))
-  });
-
-  this.leegWoord.aanvInf.forEach(el => {
-    aanvInfCtrl.push(this._fb.control({
-      term:el.term
-    }))
-  });
-  
-}
-
-  /* initVert():FormControl[]{
-    var fcs:FormControl[];
-    this.leegWoord.vert.forEach(function(el){
-      fcs.push(this._fb.control({
-        term:el.term
-      }));
-    })
-    return fcs;
+    this.initCtrl();
   }
 
-  initAanvInf():FormControl[]{
-    var fcs:FormControl[];
-    this.leegWoord.aanvInf.forEach(function(el){
-      fcs.push(this._fb.control({
-        term:el.term
-      }));
-    })
-    return fcs;
-  } */
+  initCtrl(){
+    const vertFGs = this.leegWoord.vert.map(v=>this._fb.group(v));
+    const vertFormArray = this._fb.array(vertFGs);
+    this.woordForm.setControl('vert',vertFormArray);
 
-  createItem(){
-    return this._fb.control({
-      term:''
-    })
+    const aanvInfFGs = this.leegWoord.aanvInf.map(a=>this._fb.group(a));
+    const aanvInfFormArray = this._fb.array(aanvInfFGs);
+    this.woordForm.setControl('aanvInf',aanvInfFormArray);  
   }
+ 
   onSubmit(form: FormGroup) {
     console.log('valid?', form.valid);
     console.log('genus', form.value.genus);
@@ -78,3 +46,4 @@ patch(){
   }
 
 }
+
