@@ -84,20 +84,13 @@ export class LatijnWoordenLerenComponent implements OnInit {
   }
 
   patch() {
-    const vertCtrl = <FormArray>this.woordForm.controls.vert;
-    const aanvInfCtrl = <FormArray>this.woordForm.controls.aanvInf;
+    const vertFGs = this.inputs[this.huidigWoordIndex].vert.map(v=>this._fb.group(v));
+    const vertFormArray = this._fb.array(vertFGs);
+    this.woordForm.setControl('vert',vertFormArray);
 
-    this.inputs[this.huidigWoordIndex].vert.forEach(el => {
-      vertCtrl.push(this._fb.control({
-        term: el.term
-      }))
-    });
-
-    this.inputs[this.huidigWoordIndex].aanvInf.forEach(el => {
-      aanvInfCtrl.push(this._fb.control({
-        term: el.term
-      }))
-    });
+    const aanvInfFGs = this.inputs[this.huidigWoordIndex].aanvInf.map(a=>this._fb.group(a));
+    const aanvInfFormArray = this._fb.array(aanvInfFGs);
+    this.woordForm.setControl('aanvInf',aanvInfFormArray);
   }
 
   onSubmit(form: FormGroup) {
