@@ -77,7 +77,7 @@ export class LatijnWoordenLerenComponent implements OnInit {
 
   createForm() {
     this.woordForm = this._fb.group({
-      genus: ['', [Validators.required]],
+      genus: ["", [Validators.required]],
       vert: this._fb.array([]),
       aanvInf: this._fb.array([])
     })
@@ -183,7 +183,6 @@ export class LatijnWoordenLerenComponent implements OnInit {
   }
   checkVert(index: number, vert: string, el: any): void {
     if (vert != "" && vert != this.selectedWoorden[this.huidigWoordIndex].vert[index].term) {
-      //el.focus();
       el.select();  //el.setSelectionRange(0,el.value.length); in sommige browsers 
       if (!el.classList.contains("fout")) el.classList.add("fout");
       this.aantFout += 1;
