@@ -84,13 +84,13 @@ export class LatijnWoordenLerenComponent implements OnInit {
   }
 
   patch() {
-    const vertFGs = this.inputs[this.huidigWoordIndex].vert.map(v=>this._fb.group(v));
+    const vertFGs = this.inputs[this.huidigWoordIndex].vert.map(v => this._fb.group(v));
     const vertFormArray = this._fb.array(vertFGs);
-    this.woordForm.setControl('vert',vertFormArray);
+    this.woordForm.setControl('vert', vertFormArray);
 
-    const aanvInfFGs = this.inputs[this.huidigWoordIndex].aanvInf.map(a=>this._fb.group(a));
+    const aanvInfFGs = this.inputs[this.huidigWoordIndex].aanvInf.map(a => this._fb.group(a));
     const aanvInfFormArray = this._fb.array(aanvInfFGs);
-    this.woordForm.setControl('aanvInf',aanvInfFormArray);
+    this.woordForm.setControl('aanvInf', aanvInfFormArray);
   }
 
   onSubmit(form: FormGroup) {
@@ -147,56 +147,65 @@ export class LatijnWoordenLerenComponent implements OnInit {
           w.aanvInf.foreach(a=>a.term="");
         }) */
   }
-  
 
-  nextWoord(form): void {
-    //nog iets voorzien voor als op het einde van de reeks zijn
-    if ((this.huidigWoordIndex + 2) === this.selectedWoorden.length) {
+
+  onSubmitNextWoord(form): void {
+    if (this.huidigWoordIndex + 1 < this.selectedWoorden.length) {
+      //in de reeks
+      this.huidigWoordIndex++;
+      //this.printForm(form);
+    } else if ((this.huidigWoordIndex + 2) === this.selectedWoorden.length) {
       //voorlaatste
       this.huidigWoordIndex++;
-      
-      console.log(this.huidigWoordIndex);
+      //this.printForm(form);
+      //console.log('voorlaatste', this.huidigWoordIndex);
     } else if (this.huidigWoordIndex + 1 === this.selectedWoorden.length) {
       //laatste
       this.leren = false;
       this.toonResultaat = true;
-      console.log(this.huidigWoordIndex);
-      //console.log(form);
-    } else if (this.huidigWoordIndex + 1 < this.selectedWoorden.length) {
-      //anderen id reeks
-      console.log(`je hebt ${this.aantGeg - this.aantFout} juist ingevuld van de ${this.aantGeg} gegevens.`);
-      this.huidigWoordIndex++;
-      console.log(this.huidigWoordIndex);
+      //this.printForm(form);
+      //console.log('laatste',this.huidigWoordIndex);
+      //this.woordForm.reset();
     }
-    console.log(form);
+    //this.patch();
+    //this.woordForm.reset();
+    //this.printForm(form);
+  }
+  
+  printForm(form) {
+    Object.keys(form.value).map(function (key) {
+      if (typeof form.value[key] === "object" && (form.value[key]!=null)) {
+        form.value[key].forEach(el => {
+          console.log(el.term);
+        });
+      } else if(typeof form.value[key]==="string") {
+        console.log(form.value[key]);
+      };
+    });
   }
 
   checkGenus(genus: string, el: any): void {
     if (genus != "" && genus != this.selectedWoorden[this.huidigWoordIndex].genus) {
-      //el.focus();
       el.select();  //el.setSelectionRange(0,el.value.length); in sommige browsers 
       if (!el.classList.contains("fout")) el.classList.add("fout");
-      this.aantFout += 1;
     } else {
       if (el.classList.contains("fout")) el.classList.remove("fout");
     }
   }
+
   checkVert(index: number, vert: string, el: any): void {
     if (vert != "" && vert != this.selectedWoorden[this.huidigWoordIndex].vert[index].term) {
       el.select();  //el.setSelectionRange(0,el.value.length); in sommige browsers 
       if (!el.classList.contains("fout")) el.classList.add("fout");
-      this.aantFout += 1;
     } else {
       if (el.classList.contains("fout")) el.classList.remove("fout");
     }
   }
+
   checkAanvInf(index: number, aanvInf: string, el: any): void {
     if (aanvInf != "" && aanvInf != this.selectedWoorden[this.huidigWoordIndex].aanvInf[index].term) {
-      //el.focus();
       el.select();  //el.setSelectionRange(0,el.value.length); in sommige browsers 
       if (!el.classList.contains("fout")) el.classList.add("fout");
-      console.log(el.parentNode.className);
-      this.aantFout += 1;
     } else {
       if (el.classList.contains("fout")) el.classList.remove("fout");
     }
@@ -205,4 +214,5 @@ export class LatijnWoordenLerenComponent implements OnInit {
   back(): void {
     this._location.back();
   }
+
 }
