@@ -17,14 +17,14 @@
   <div *ngIf="leren" class="well">
     <p>Lees het woord aandachtig, tik de juiste info in de tekstvakken en als je klaar bent druk dan op volgende. Als je klaar
       bent klik je op de knop Klaar.</p>
+      
     <form [formGroup]="woordForm" (ngSubmit)="onSubmitNextWoord(woordForm)" novalidate>
-
-      <h4>{{selectedWoorden[huidigWoordIndex].term}}</h4>
-
+        <h4>{{selectedWoorden[huidigWoordIndex].term}}</h4>
       <div *ngIf="selectedWoorden[huidigWoordIndex].genus" class="col-md-2 form-group">
         <div>
           <label class="control-label" for="genus">Genus</label>
           <input class="form-control" formControlName="genus" placeholder="{{selectedWoorden[huidigWoordIndex].genus}}">
+          
         </div>
       </div>
 

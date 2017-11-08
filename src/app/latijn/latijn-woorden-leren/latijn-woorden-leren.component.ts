@@ -36,7 +36,7 @@ export class LatijnWoordenLerenComponent implements OnInit {
 
 
   toonResultaat = false;
-
+  leegControl: number;
   constructor(private _latijnService: LatijnService,
     private _location: Location, private _fb: FormBuilder) {
   }
@@ -77,6 +77,7 @@ export class LatijnWoordenLerenComponent implements OnInit {
 
   createForm() {
     this.woordForm = this._fb.group({
+      
       genus: ["", [Validators.required]],
       vert: this._fb.array([]),
       aanvInf: this._fb.array([])
@@ -150,38 +151,48 @@ export class LatijnWoordenLerenComponent implements OnInit {
 
 
   onSubmitNextWoord(form): void {
+
     if (this.huidigWoordIndex + 1 < this.selectedWoorden.length) {
       //in de reeks
+      console.log(this.selectedWoorden[this.huidigWoordIndex].term);
+      this.printForm(form);
       this.huidigWoordIndex++;
-      //this.printForm(form);
+
     } else if ((this.huidigWoordIndex + 2) === this.selectedWoorden.length) {
       //voorlaatste
+      console.log(this.selectedWoorden[this.huidigWoordIndex].term);
+      this.printForm(form);
       this.huidigWoordIndex++;
-      //this.printForm(form);
-      //console.log('voorlaatste', this.huidigWoordIndex);
     } else if (this.huidigWoordIndex + 1 === this.selectedWoorden.length) {
       //laatste
       this.leren = false;
       this.toonResultaat = true;
-      //this.printForm(form);
-      //console.log('laatste',this.huidigWoordIndex);
-      //this.woordForm.reset();
+
+      console.log(this.selectedWoorden[this.huidigWoordIndex].term);
+      this.printForm(form);
     }
-    //this.patch();
+    //de arrays in de form opnieuw definiëren adh van het huidige woord
+    this.patch();
     //this.woordForm.reset();
     //this.printForm(form);
   }
-  
+ 
   printForm(form) {
+    var blanks=0;
     Object.keys(form.value).map(function (key) {
       if (typeof form.value[key] === "object" && (form.value[key]!=null)) {
         form.value[key].forEach(el => {
-          console.log(el.term);
+          if(el.term===""){
+            blanks += 1;
+          };
         });
-      } else if(typeof form.value[key]==="string") {
+      }
+      /* else if(typeof form.value[key]==="string") {
         console.log(form.value[key]);
-      };
+      }; */
     });
+    this.leegControl=blanks;
+    console.log(this.leegControl)
   }
 
   checkGenus(genus: string, el: any): void {
