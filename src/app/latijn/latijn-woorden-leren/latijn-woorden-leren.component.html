@@ -4,27 +4,28 @@
 
     <div class="form-group">
       Van
-      <select [(ngModel)]="selectedWoordVan" (ngModelChange)="onChangeVan($event)" required>
+      <select [(ngModel)]="selectedWoordVan" (ngModelChange)="onChangeVan($event)" required [disabled]="!selectDivEnabled">
         <option *ngFor="let woord of alleWoorden" [ngValue]="woord">{{woord.id}} - {{woord.term}}</option>
       </select> t/m
-      <select [(ngModel)]="selectedWoordTot" required>
+      <select [(ngModel)]="selectedWoordTot" required [disabled]="!selectDivEnabled">
         <option *ngFor="let woord of woordenVan" [ngValue]="woord">{{woord.id}} - {{woord.term}}</option>
       </select>
     </div>
-    <input type="button" value="start" class="btn btn-primary" (click)="btnStart()" [disabled]="!btnStartEnabled" />
+    <input type="button" value="start" class="btn btn-primary" (click)="btnStart()" [disabled]="!selectDivEnabled"/>
+
   </div>
 
   <div *ngIf="leren" class="well">
     <p>Lees het woord aandachtig, tik de juiste info in de tekstvakken en als je klaar bent druk dan op volgende. Als je klaar
       bent klik je op de knop Klaar.</p>
-      
+
     <form [formGroup]="woordForm" (ngSubmit)="onSubmitNextWoord(woordForm)" novalidate>
-        <h4>{{selectedWoorden[huidigWoordIndex].term}}</h4>
+      <h4>{{selectedWoorden[huidigWoordIndex].term}}</h4>
       <div *ngIf="selectedWoorden[huidigWoordIndex].genus" class="col-md-2 form-group">
         <div>
           <label class="control-label" for="genus">Genus</label>
           <input class="form-control" formControlName="genus" placeholder="{{selectedWoorden[huidigWoordIndex].genus}}">
-          
+
         </div>
       </div>
 
@@ -46,15 +47,16 @@
         </div>
       </div>
 
-        <div class="form-group">
-          <button id="buttonNext" name="buttonNext" class="btn btn-primary" type="submit">Next</button>
-          <button id="buttonKlaar" name="buttonKlaar" class="btn btn-primary disabled" type="submit">Klaar</button>
-        </div>
+      <div class="form-group">
+        <button id="buttonNext" name="buttonNext" class="btn btn-primary" type="submit">Next</button>
+        <button id="buttonKlaar" name="buttonKlaar" class="btn btn-primary disabled" type="submit">Klaar</button>
+      </div>
 
     </form>
-
-    <div *ngIf="toonResultaat">
-      result
-    </div>
-
+  </div>
+  <div *ngIf="toonResultaat" [ngClass]="(aantalBlanks===0)?'alert alert-success':'alert alert-warning'">
+    {{resultaatBericht}} Je kan opnieuw naar
+    <a id="opnieuwLink" (click)="opnieuwWoordenLeren()">Woorden leren</a>
+    of jezelf testen met
+    <a routerLink="/latijn/woordenafvragen">Woorden afvragen</a>
   </div>

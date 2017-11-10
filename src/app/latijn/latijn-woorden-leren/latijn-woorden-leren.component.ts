@@ -27,7 +27,7 @@ export class LatijnWoordenLerenComponent implements OnInit {
   leren: boolean = false;
   huidigWoordIndex = 0;
   huidigWoord: any;
-  btnStartEnabled = true;
+  selectDivEnabled = true;
 
   inputs: any[];
   woordForm: FormGroup;
@@ -36,7 +36,9 @@ export class LatijnWoordenLerenComponent implements OnInit {
 
 
   toonResultaat = false;
-  leegControl: number;
+  aantalBlanks: number = 0;
+  resultaatBericht: string;
+
   constructor(private _latijnService: LatijnService,
     private _location: Location, private _fb: FormBuilder) {
   }
@@ -67,7 +69,7 @@ export class LatijnWoordenLerenComponent implements OnInit {
     this.inputs = this.deepClone(this.selectedWoorden);
     this.blankInputs();
 
-    this.btnStartEnabled = false;
+    this.selectDivEnabled = false;
 
     //maak formulier
     this.createForm();
@@ -77,7 +79,7 @@ export class LatijnWoordenLerenComponent implements OnInit {
 
   createForm() {
     this.woordForm = this._fb.group({
-      
+
       genus: ["", [Validators.required]],
       vert: this._fb.array([]),
       aanvInf: this._fb.array([])
@@ -94,11 +96,6 @@ export class LatijnWoordenLerenComponent implements OnInit {
     this.woordForm.setControl('aanvInf', aanvInfFormArray);
   }
 
-  onSubmit(form: FormGroup) {
-    console.log('valid?', form.valid);
-    //console.log('genus', form.value.genus);
-    console.log(form.value);
-  }
 
   deepClone(obj) {
 
@@ -131,12 +128,10 @@ export class LatijnWoordenLerenComponent implements OnInit {
       if (this.inputs[i].genus != undefined) this.inputs[i].genus = "";
 
       for (var j = 0; j < this.inputs[i].vert.length; j++) {
-        //console.log('v:',this.inputs[i].vert[j].term)
         this.inputs[i].vert[j].term = "";
       }
 
       for (var k = 0; k < this.inputs[i].aanvInf.length; k++) {
-        //console.log('a:',this.inputs[i].aanvInf[k].term)
         this.inputs[i].aanvInf[k].term = "";
       }
 
@@ -154,35 +149,31 @@ export class LatijnWoordenLerenComponent implements OnInit {
 
     if (this.huidigWoordIndex + 1 < this.selectedWoorden.length) {
       //in de reeks
-      console.log(this.selectedWoorden[this.huidigWoordIndex].term);
-      this.printForm(form);
       this.huidigWoordIndex++;
 
     } else if ((this.huidigWoordIndex + 2) === this.selectedWoorden.length) {
       //voorlaatste
-      console.log(this.selectedWoorden[this.huidigWoordIndex].term);
-      this.printForm(form);
       this.huidigWoordIndex++;
     } else if (this.huidigWoordIndex + 1 === this.selectedWoorden.length) {
       //laatste
       this.leren = false;
-      this.toonResultaat = true;
-
-      console.log(this.selectedWoorden[this.huidigWoordIndex].term);
-      this.printForm(form);
+      //resultaat berekenen
+      this.countBlanks(form);
+      //resultaat tonen
+      this.showResult();
     }
     //de arrays in de form opnieuw definiëren adh van het huidige woord
     this.patch();
     //this.woordForm.reset();
     //this.printForm(form);
   }
- 
-  printForm(form) {
-    var blanks=0;
+
+  countBlanks(form) {
+    var blanks: number = 0;
     Object.keys(form.value).map(function (key) {
-      if (typeof form.value[key] === "object" && (form.value[key]!=null)) {
+      if (typeof form.value[key] === "object" && (form.value[key] != null)) {
         form.value[key].forEach(el => {
-          if(el.term===""){
+          if (el.term === "") {
             blanks += 1;
           };
         });
@@ -191,8 +182,17 @@ export class LatijnWoordenLerenComponent implements OnInit {
         console.log(form.value[key]);
       }; */
     });
-    this.leegControl=blanks;
-    console.log(this.leegControl)
+
+    this.aantalBlanks += blanks;
+  }
+
+  showResult() {
+    this.toonResultaat = true;
+    if (this.aantalBlanks > 0) {
+      this.resultaatBericht = `Pas op. Je hebt ${this.aantalBlanks} antwoord(en) niet ingevuld.`;
+    } else {
+      this.resultaatBericht = `Goed gedaan.`;
+    }
   }
 
   checkGenus(genus: string, el: any): void {
@@ -221,7 +221,10 @@ export class LatijnWoordenLerenComponent implements OnInit {
       if (el.classList.contains("fout")) el.classList.remove("fout");
     }
   }
-
+  opnieuwWoordenLeren() {
+    this.selectDivEnabled = true;
+    this.toonResultaat=false;
+  }
   back(): void {
     this._location.back();
   }
