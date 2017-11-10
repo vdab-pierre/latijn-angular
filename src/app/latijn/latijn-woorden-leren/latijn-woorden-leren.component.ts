@@ -18,31 +18,35 @@ export class LatijnWoordenLerenComponent implements OnInit {
   alleWoorden: any[];
   //wordt in btnStart gevuld
   selectedWoorden = [];
+
   //bound with the selects of the form, used in selectWoorden
   selectedWoordVan = null;
   selectedWoordTot = null;
   //voor de options van de 2de select 
   woordenVan: any[];
-
-  leren: boolean = false;
-  huidigWoordIndex = 0;
-  huidigWoord: any;
+  //div om de woorden te selecteren al dan niet selecteren
   selectDivEnabled = true;
 
+  //leren div weergeven of niet
+  leren: boolean = false;
+  //index van het huidige woord in de selectedWoorden array
+  huidigWoordIndex = 0;
+
+  //een clone van selectedWoorden maar leeg
   inputs: any[];
   woordForm: FormGroup;
-  aantGeg: number;
-  aantFout: number;
 
-
+  //resultaat div
   toonResultaat = false;
+
+  //aantal niet ingevulden vakken
   aantalBlanks: number = 0;
+  //resultaat alnaargelang of niet ingevulden vakken zijn
   resultaatBericht: string;
 
   constructor(private _latijnService: LatijnService,
     private _location: Location, private _fb: FormBuilder) {
   }
-
 
 
   ngOnInit() {
@@ -73,13 +77,12 @@ export class LatijnWoordenLerenComponent implements OnInit {
 
     //maak formulier
     this.createForm();
-    //patch values
+    //formulier arrays vullen
     this.patch();
   }
 
   createForm() {
     this.woordForm = this._fb.group({
-
       genus: ["", [Validators.required]],
       vert: this._fb.array([]),
       aanvInf: this._fb.array([])
@@ -136,12 +139,6 @@ export class LatijnWoordenLerenComponent implements OnInit {
       }
 
     }
-
-    /*     this.getypt.forEach((w:Woord)=>function(w){
-          if(w.genus!=undefined)w.genus="";
-          w.vert.forEach(v=>v.term="");
-          w.aanvInf.foreach(a=>a.term="");
-        }) */
   }
 
 
@@ -149,27 +146,29 @@ export class LatijnWoordenLerenComponent implements OnInit {
 
     if (this.huidigWoordIndex + 1 < this.selectedWoorden.length) {
       //in de reeks
+      this.countBlanks(form);
       this.huidigWoordIndex++;
 
     } else if ((this.huidigWoordIndex + 2) === this.selectedWoorden.length) {
       //voorlaatste
+      this.countBlanks(form);
       this.huidigWoordIndex++;
     } else if (this.huidigWoordIndex + 1 === this.selectedWoorden.length) {
       //laatste
       this.leren = false;
       //resultaat berekenen
+      console.log("resultaat berekenen");
       this.countBlanks(form);
       //resultaat tonen
       this.showResult();
     }
-    //de arrays in de form opnieuw definiëren adh van het huidige woord
+    //de arrays in de form opnieuw definiëren adh van het huidige woord (huidigWoordIndex)
     this.patch();
-    //this.woordForm.reset();
-    //this.printForm(form);
   }
 
   countBlanks(form) {
     var blanks: number = 0;
+    
     Object.keys(form.value).map(function (key) {
       if (typeof form.value[key] === "object" && (form.value[key] != null)) {
         form.value[key].forEach(el => {
@@ -178,11 +177,7 @@ export class LatijnWoordenLerenComponent implements OnInit {
           };
         });
       }
-      /* else if(typeof form.value[key]==="string") {
-        console.log(form.value[key]);
-      }; */
     });
-
     this.aantalBlanks += blanks;
   }
 
@@ -193,6 +188,8 @@ export class LatijnWoordenLerenComponent implements OnInit {
     } else {
       this.resultaatBericht = `Goed gedaan.`;
     }
+    //reset waarde na het tonen van de results
+    this.aantalBlanks=0;
   }
 
   checkGenus(genus: string, el: any): void {
@@ -223,10 +220,6 @@ export class LatijnWoordenLerenComponent implements OnInit {
   }
   opnieuwWoordenLeren() {
     this.selectDivEnabled = true;
-    this.toonResultaat=false;
+    this.toonResultaat = false;
   }
-  back(): void {
-    this._location.back();
-  }
-
 }
