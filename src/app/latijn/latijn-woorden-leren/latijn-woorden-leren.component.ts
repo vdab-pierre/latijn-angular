@@ -146,19 +146,18 @@ export class LatijnWoordenLerenComponent implements OnInit {
 
     if (this.huidigWoordIndex + 1 < this.selectedWoorden.length) {
       //in de reeks
-      this.countBlanks(form);
+      this.countBlanks(form,this.huidigWoordIndex);
       this.huidigWoordIndex++;
 
     } else if ((this.huidigWoordIndex + 2) === this.selectedWoorden.length) {
       //voorlaatste
-      this.countBlanks(form);
+      this.countBlanks(form,this.huidigWoordIndex);
       this.huidigWoordIndex++;
     } else if (this.huidigWoordIndex + 1 === this.selectedWoorden.length) {
       //laatste
       this.leren = false;
       //resultaat berekenen
-      console.log("resultaat berekenen");
-      this.countBlanks(form);
+      this.countBlanks(form,this.huidigWoordIndex);
       //resultaat tonen
       this.showResult();
     }
@@ -166,9 +165,9 @@ export class LatijnWoordenLerenComponent implements OnInit {
     this.patch();
   }
 
-  countBlanks(form) {
+  countBlanks(form,i) {
     var blanks: number = 0;
-    
+    var dees = this;
     Object.keys(form.value).map(function (key) {
       if (typeof form.value[key] === "object" && (form.value[key] != null)) {
         form.value[key].forEach(el => {
@@ -176,6 +175,8 @@ export class LatijnWoordenLerenComponent implements OnInit {
             blanks += 1;
           };
         });
+      }else if(key==="genus" && dees.selectedWoorden[i].genus != null){
+        blanks+=1;
       }
     });
     this.aantalBlanks += blanks;
