@@ -5,7 +5,7 @@ import { Woord } from '../latijn/caput/woord';
 import { Caput } from '../latijn/caput/caput';
 import { Vertaling } from '../latijn/caput/vertaling';
 import { AanvullendeInfo } from '../latijn/caput/aanvinfo';
-import { Genus } from '../latijn/genus'
+import { Genus } from '../latijn/genus';
 
 @Component({
   selector: 'app-test-rf',
